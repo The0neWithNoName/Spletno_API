@@ -16,7 +16,6 @@ namespace SpletnoProject.Controllers
     {
         public string Get()
         {
-           //Potato nugget
             return "Welcome To this weird af Api";
         }
 
