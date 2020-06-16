@@ -55,21 +55,6 @@ namespace SpletnoProject.Controllers
 
                 return JsonConvert.SerializeObject(GlobalClass.BlockChain);
             }
-            else if (command == "connect")
-            {
-
-                if (GlobalClass.ListIP.ContainsKey(HttpContext.Current.Request.UserHostAddress))
-                {
-                    GlobalClass.ListIP[HttpContext.Current.Request.UserHostAddress]++;
-                }
-                else
-                    GlobalClass.ListIP.Add(HttpContext.Current.Request.UserHostAddress, 1);
-
-
-
-
-                return HttpContext.Current.Request.UserHostAddress;
-            }
             else if (command == "quit")
             {
                 if (GlobalClass.ListIP.ContainsKey(HttpContext.Current.Request.UserHostAddress))
@@ -146,6 +131,7 @@ namespace SpletnoProject.Controllers
           
             GlobalClass.Log.Add(HttpContext.Current.Request.UserHostAddress + ": " + command + ": " + username );
 
+           
 
             if (command == "connect")
             {
@@ -204,8 +190,8 @@ namespace SpletnoProject.Controllers
 
         public string Get(string command, string username, string data, string signature)
         {
-          
 
+            
             bool active = false;
             RSAParameters privateKey;
             //return "AAAAAAAAA";

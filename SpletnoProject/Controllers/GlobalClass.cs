@@ -19,7 +19,7 @@ namespace SpletnoProject.Controllers
       //  static List<Tuple<string, int>> _list = new List<Tuple<string, int>>();
         static List<string> _log = new List<string>();
 
-
+     
         static Dictionary<string, Wallet> _userWaffles  = new   Dictionary<string,Wallet>();
        
         public static String Block
