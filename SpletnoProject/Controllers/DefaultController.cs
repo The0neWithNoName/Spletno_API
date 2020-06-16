@@ -122,7 +122,24 @@ namespace SpletnoProject.Controllers
                 }
                 return data;
             }
-           
+            else if (command == "check_mytrans")
+            {
+                string data = "";
+
+                /*
+                foreach(Transaction transaction in GlobalClass.UserWallets[username].transactionLog)
+                {
+                    data += transaction.ToString() + "\n";
+                }
+                */
+
+                for (int i = 0; i < GlobalClass.UserWallets[username].myTransactionLog.Count; i++)
+                {
+                    data += GlobalClass.UserWallets[username].myTransactionLog[i].ToString() + "\n";
+                }
+                return data;
+            }
+
             return "No";
         }
 
@@ -247,8 +264,9 @@ namespace SpletnoProject.Controllers
 
                         if (GlobalClass.UserWallets.ContainsKey(hashedUser))
                         {
-                            Transaction transaction = new Transaction(Math.Abs(int.Parse(number)), true, GlobalClass.UserWallets[username].Owner);
+                            Transaction transaction = new Transaction(Math.Abs(int.Parse(number)), true, GlobalClass.UserWallets[username].Owner, otheruser);
                             GlobalClass.UserWallets[hashedUser].transactionLog.Add(transaction);
+                            GlobalClass.UserWallets[username].myTransactionLog.Add(transaction);
                             return "Transaction Requested";
                         }
                         else
@@ -266,8 +284,9 @@ namespace SpletnoProject.Controllers
 
                         if (GlobalClass.UserWallets.ContainsKey(hashedUser))
                         {
-                            Transaction transaction = new Transaction(Math.Abs(int.Parse(number)), false, GlobalClass.UserWallets[username].Owner);
+                            Transaction transaction = new Transaction(Math.Abs(int.Parse(number)), false, GlobalClass.UserWallets[username].Owner, otheruser);
                             GlobalClass.UserWallets[hashedUser].transactionLog.Add(transaction);
+                            GlobalClass.UserWallets[username].myTransactionLog.Add(transaction);
                             return "Transaction Requested";
                         }
                         else

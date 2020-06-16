@@ -18,7 +18,7 @@ namespace SpletnoProject.Controllers
         static Dictionary<string, int> _list = new Dictionary<string, int>();
       //  static List<Tuple<string, int>> _list = new List<Tuple<string, int>>();
         static List<string> _log = new List<string>();
-
+        
      
         static Dictionary<string, Wallet> _userWaffles  = new   Dictionary<string,Wallet>();
        
@@ -82,6 +82,10 @@ namespace SpletnoProject.Controllers
                 _log = value;
             }
         }
+
+    
+  
+
 
         public static Dictionary<string, Wallet> UserWallets
         {

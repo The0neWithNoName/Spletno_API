@@ -109,6 +109,7 @@ namespace SpletnoProject.Controllers
                                     Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
 
                                     GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
+                                    GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(transaction);
                                 }
                                 else
                                 {
@@ -138,7 +139,7 @@ namespace SpletnoProject.Controllers
                                     string data = GlobalClass.UserWallets[username].Owner + " is Sending " + GlobalClass.UserWallets[hashedUser].Owner + " " + transaction.Amount + " Gold";
 
                                     Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
-
+                                    GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(transaction);
                                     GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
                                 }
                                 else
@@ -177,6 +178,15 @@ namespace SpletnoProject.Controllers
                             Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
 
                             GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
+
+
+                            string hashedUser = "";
+                            using (var sha256 = new SHA256Managed())
+                            {
+                                hashedUser = BitConverter.ToString(sha256.ComputeHash(Encoding.UTF8.GetBytes(transaction.OtherUser))).Replace("-", "");
+                            }
+
+                            GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(transaction);
 
                         }
                         GlobalClass.UserWallets[username].transactionLog = new List<Transaction>();
@@ -255,6 +265,7 @@ namespace SpletnoProject.Controllers
                             Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
 
                             GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
+                            GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(GlobalClass.UserWallets[username].transactionLog[Math.Abs(int.Parse(number))]);
                             GlobalClass.UserWallets[username].transactionLog.RemoveAt(Math.Abs(int.Parse(number)));
                             return GlobalClass.BlockChain.getLastBlock().blockToJson();
                         }
@@ -279,6 +290,7 @@ namespace SpletnoProject.Controllers
                             Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
 
                             GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
+                            GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(GlobalClass.UserWallets[username].transactionLog[Math.Abs(int.Parse(number))]);
                             GlobalClass.UserWallets[username].transactionLog.RemoveAt(Math.Abs(int.Parse(number)));
                             return GlobalClass.BlockChain.getLastBlock().blockToJson();
                         }
@@ -295,6 +307,12 @@ namespace SpletnoProject.Controllers
                     Block block = new Block(GlobalClass.BlockChain.chain.Count, data, "");
 
                     GlobalClass.BlockChain.addBlock(block, GlobalClass.Diff);
+                    string hashedUser = "";
+                    using (var sha256 = new SHA256Managed())
+                    {
+                        hashedUser = BitConverter.ToString(sha256.ComputeHash(Encoding.UTF8.GetBytes(GlobalClass.UserWallets[username].transactionLog[Math.Abs(int.Parse(number))].OtherUser))).Replace("-", "");
+                    }
+                    GlobalClass.UserWallets[hashedUser].myTransactionLog.Remove(GlobalClass.UserWallets[username].transactionLog[Math.Abs(int.Parse(number))]);
                     GlobalClass.UserWallets[username].transactionLog.RemoveAt(Math.Abs(int.Parse(number)));
                     return GlobalClass.BlockChain.getLastBlock().blockToJson();
                 }

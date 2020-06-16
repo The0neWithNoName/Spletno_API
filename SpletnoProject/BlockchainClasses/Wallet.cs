@@ -15,6 +15,7 @@ namespace SpletnoProject.BlockchainClasses
             _key = key;
             _signatureKey = signatureKey;
             transactionLog = new List<Transaction>();
+            myTransactionLog = new List<Transaction>();
 
         }
 
@@ -31,7 +32,7 @@ namespace SpletnoProject.BlockchainClasses
         }
 
         public List<Transaction> transactionLog;
-        
+        public List<Transaction> myTransactionLog;
         public int Gold { get {return _gold; } set { _gold = value; } }
 
         public RSAParameters Key { get { return _key; } set { _key = value; } }
