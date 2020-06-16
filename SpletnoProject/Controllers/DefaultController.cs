@@ -88,6 +88,11 @@ namespace SpletnoProject.Controllers
             {
                 return JsonConvert.SerializeObject(GlobalClass.Log);
             }
+            else if (command == "clr_log")
+            {
+                GlobalClass.Log = new List<string>();
+                return "ok";
+            }
             
             return "Unknown Command: " + command;
 
