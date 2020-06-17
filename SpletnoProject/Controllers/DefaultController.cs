@@ -272,7 +272,7 @@ namespace SpletnoProject.Controllers
                             Transaction transaction = new Transaction(Math.Abs(int.Parse(number)), true, GlobalClass.UserWallets[username].Owner, otheruser);
                             GlobalClass.UserWallets[hashedUser].transactionLog.Add(transaction);
                             GlobalClass.UserWallets[username].myTransactionLog.Add(transaction);
-                            return "Transaction Requested: Sending" + otheruser + " " + number + " gold";
+                            return "Transaction Requested: Sending " + otheruser + " " + number + " gold";
                         }
                         else
                         {
